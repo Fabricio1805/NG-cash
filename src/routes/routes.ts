@@ -11,8 +11,5 @@ routes.use('/user', userRoutes);
 
 routes.use(Authenticated);
 
-routes.get('/teste', (req, res) => {
-  return res.send('olá mundo!');
-});
 
 export default routes;
