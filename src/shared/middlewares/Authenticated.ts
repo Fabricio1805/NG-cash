@@ -12,6 +12,7 @@ const Authenticated = async (
   res: Response,
   next: NextFunction
 ) => {
+
   const authToken = req.headers.authorization;
 
   if (!authToken) {
@@ -20,19 +21,24 @@ const Authenticated = async (
 
   const token = authToken.split(' ')[1];
 
-  const { id } = verify(token, process.env.JWT_SECRET ?? '') as JwtPayload;
+  try{
+    const { id } = verify(token, process.env.JWT_SECRET ?? '') as JwtPayload;
 
-  const user = await prismaClient.user.findFirst({ where: { id } });
+    const user = await prismaClient.user.findFirst({ where: { id } });
 
-  if (!user) {
-    throw new AppError('Não autorizado', 401);
+    if (!user) {
+      throw new AppError('Não autorizado', 401);
+    }
+
+    const { password: _, ...loggedUser } = user;
+
+    req.user = loggedUser;
+
+    next();
+
+  } catch {
+    throw new AppError('Invalid JWT Token', 401);
   }
-
-  const { password: _, ...loggedUser } = user;
-
-  req.user = loggedUser;
-
-  next();
 };
 
 export default Authenticated;

@@ -1,21 +1,7 @@
-FROM node:alpine
+FROM node:18.14.0-alpine3.17
 
-WORKDIR /app
+RUN apk add --no-cache bash
 
-COPY package*.json ./
+USER node
 
-COPY prisma ./prisma/
-
-COPY .env ./
-
-COPY tsconfig.json ./
-
-COPY . .
-
-RUN npm install
-
-RUN npx prisma generate
-
-EXPOSE 3001
-
-CMD npm run dev
+WORKDIR /home/node/app
