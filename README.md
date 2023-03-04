@@ -16,3 +16,15 @@ as transações realizadas , os updates nas respectivas contas ocorrem.
 * Typescript;
 * Prisma;
 * JWT;
+
+
+# Como executar o projeto
+## Back end
+pre-requesito: docker
+```bash
+ # Clonar o repositório
+ git clone https://github.com/Fabricio1805/NG-cash.git
+ 
+ # Executar o comando docker
+ docker-compose up
+```
