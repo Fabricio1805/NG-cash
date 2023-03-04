@@ -25,6 +25,9 @@ pre-requesito: docker
  # Clonar o repositório
  git clone https://github.com/Fabricio1805/NG-cash.git
  
+ # entrar na pasta do projeto
+ cd NG-cash 
+ 
  # Executar o comando docker
  docker-compose up
 ```
